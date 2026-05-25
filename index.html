@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="编程教学助手 - 逐行解释代码、找出逻辑错误、提供算法题解题思路">
+    <title>CodeMentor · 编程教学助手</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- 背景动画粒子 -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">⟨/⟩</span>
+                <span class="logo-text">CodeMentor</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link active" data-section="hero">首页</a>
+                <a href="#explain" class="nav-link" data-section="explain">代码解释</a>
+                <a href="#debug" class="nav-link" data-section="debug">逻辑纠错</a>
+                <a href="#algorithm" class="nav-link" data-section="algorithm">算法思路</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ 你的编程学习伙伴</div>
+            <h1 class="hero-title">
+                <span class="gradient-text">编程教学</span>助手
+            </h1>
+            <p class="hero-subtitle">
+                逐行解释代码逻辑 · 精准定位逻辑错误 · 算法解题思路引导
+            </p>
+            <div class="hero-actions">
+                <a href="#explain" class="btn btn-primary">
+                    <span>开始学习</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#algorithm" class="btn btn-secondary">算法练习</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>+
+                    <span class="stat-label">代码示例</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="30">0</span>+
+                    <span class="stat-label">常见错误</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="20">0</span>+
+                    <span class="stat-label">算法专题</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="code-window">
+                <div class="window-header">
+                    <div class="window-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="window-title">main.py</span>
+                </div>
+                <div class="window-body">
+                    <pre class="typing-code" id="typingCode"></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能模块一：逐行解释代码 -->
+    <section class="section" id="explain">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">📖 功能一</span>
+                <h2 class="section-title">逐行<span class="gradient-text">解释</span>代码</h2>
+                <p class="section-desc">选择一段代码，我们将为你逐行解释每行代码的含义和作用</p>
+            </div>
+
+            <div class="explain-workspace">
+                <div class="workspace-controls">
+                    <label for="languageSelect" class="control-label">编程语言</label>
+                    <select id="languageSelect" class="select-input">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="c">C / C++</option>
+                    </select>
+                    <label for="exampleSelect" class="control-label">示例代码</label>
+                    <select id="exampleSelect" class="select-input">
+                        <option value="">-- 选择示例或自行粘贴 --</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" id="explainBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        开始解释
+                    </button>
+                </div>
+
+                <div class="workspace-panels">
+                    <div class="panel code-panel">
+                        <div class="panel-header">
+                            <span class="panel-icon">📝</span> 源代码
+                        </div>
+                        <textarea class="code-input" id="codeInput" placeholder="在此粘贴你的代码，或从上方选择示例..."
+                            spellcheck="false"></textarea>
+                    </div>
+                    <div class="panel explain-panel">
+                        <div class="panel-header">
+                            <span class="panel-icon">💡</span> 逐行解释
+                        </div>
+                        <div class="explain-output" id="explainOutput">
+                            <div class="placeholder-msg">
+                                <div class="placeholder-icon">🔍</div>
+                                <p>选择或粘贴代码，然后点击"开始解释"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能模块二：找出逻辑错误 -->
+    <section class="section section-alt" id="debug">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">🐛 功能二</span>
+                <h2 class="section-title">找出<span class="gradient-text">逻辑错误</span></h2>
+                <p class="section-desc">分析代码中隐藏的逻辑错误，帮你建立调试思维</p>
+            </div>
+
+            <div class="debug-workspace">
+                <div class="debug-categories" id="debugCategories">
+                    <!-- 动态填充 -->
+                </div>
+
+                <div class="debug-challenge" id="debugChallenge">
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <span class="challenge-difficulty" id="challengeDifficulty">简单</span>
+                            <h3 class="challenge-title" id="challengeTitle">选择一个类别开始</h3>
+                        </div>
+                        <div class="challenge-desc" id="challengeDesc">
+                            <p>从左侧选择一个错误类别，查看包含逻辑错误的代码</p>
+                        </div>
+                        <div class="challenge-code-area">
+                            <div class="panel-header">
+                                <span class="panel-icon">⚠️</span> 有Bug的代码
+                            </div>
+                            <pre class="challenge-code" id="challengeCode"><code>// 从左侧选择开始...</code></pre>
+                        </div>
+                        <div class="challenge-actions">
+                            <button class="btn btn-secondary btn-sm" id="showHintBtn" disabled>
+                                💡 提示
+                            </button>
+                            <button class="btn btn-primary btn-sm" id="showAnswerBtn" disabled>
+                                ✅ 查看答案
+                            </button>
+                        </div>
+                        <div class="challenge-hint hidden" id="challengeHint"></div>
+                        <div class="challenge-answer hidden" id="challengeAnswer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能模块三：算法解题思路 -->
+    <section class="section" id="algorithm">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">🧠 功能三</span>
+                <h2 class="section-title">算法<span class="gradient-text">解题思路</span></h2>
+                <p class="section-desc">经典算法题的解题框架和思路引导，培养算法思维</p>
+            </div>
+
+            <div class="algo-workspace">
+                <div class="algo-sidebar">
+                    <div class="algo-search">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input type="text" class="algo-search-input" id="algoSearch" placeholder="搜索算法题...">
+                    </div>
+                    <div class="algo-tags" id="algoTags">
+                        <!-- 动态生成 -->
+                    </div>
+                    <div class="algo-list" id="algoList">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <div class="algo-detail" id="algoDetail">
+                    <div class="placeholder-msg">
+                        <div class="placeholder-icon">🎯</div>
+                        <p>从左侧选择一道算法题，查看解题思路</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span class="logo-icon">⟨/⟩</span>
+                <span>CodeMentor</span>
+            </div>
+            <p class="footer-text">编程教学助手 · 让代码学习更高效</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
